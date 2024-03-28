@@ -5,19 +5,19 @@ pragma solidity ^0.8.20;
 /// @notice Library for custom errors and error handlers
 
 library Errors {
-	error AccessDenied(address);
-
 	error EmptyCode(address);
 
 	error ExceededMaxLimit();
 
-	error FeedNotExists();
+	error ExistsAlready();
+
+	error NotExists(string);
 
 	error IdenticalAddresses();
 
-	error OutOfBounds();
-
 	error ZeroAddress(string);
+
+	error ZeroBytes32(string);
 
 	error ZeroValue(string);
 
@@ -32,13 +32,13 @@ library Errors {
 		return target;
 	}
 
-	function verifyCaller(address target, address expected) internal pure returns (address) {
-		if (target != expected) revert AccessDenied(target);
+	function verifyNotZero(address target, string memory parameterName) internal pure returns (address) {
+		if (isZero(uint160(target))) revert ZeroAddress(parameterName);
 		return target;
 	}
 
-	function verifyNotZero(address target, string memory parameterName) internal pure returns (address) {
-		if (isZero(uint160(target))) revert ZeroAddress(parameterName);
+	function verifyNotZero(bytes32 target, string memory parameterName) internal pure returns (bytes32) {
+		if (isZero(uint256(target))) revert ZeroBytes32(parameterName);
 		return target;
 	}
 

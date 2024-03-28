@@ -27,11 +27,11 @@ library Denominations {
 					unit := mload(0x00)
 				}
 				default {
-					unit := 8
+					unit := 8 // equivalent to decimals of BTC and USD ChainLink Aggregators
 				}
 			}
 			default {
-				unit := 18
+				unit := 18 // equivalent to decimals of ETH and ETH ChainLink Aggregators
 			}
 		}
 	}

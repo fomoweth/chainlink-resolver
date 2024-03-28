@@ -10,15 +10,16 @@ library PriceConverter {
 	function derive(
 		uint256 basePrice,
 		uint256 quotePrice,
-		uint8 priceDecimals,
+		uint8 baseDecimals,
+		uint8 quoteDecimals,
 		uint8 assetDecimals
 	) internal pure returns (uint256 derived) {
 		unchecked {
 			if (basePrice != 0 && quotePrice != 0) {
 				derived = FullMath.mulDiv(
-					scale(basePrice, priceDecimals, assetDecimals),
+					scale(basePrice, baseDecimals, assetDecimals),
 					10 ** assetDecimals,
-					scale(quotePrice, priceDecimals, assetDecimals)
+					scale(quotePrice, quoteDecimals, assetDecimals)
 				);
 			}
 		}

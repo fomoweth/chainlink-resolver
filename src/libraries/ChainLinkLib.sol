@@ -180,14 +180,15 @@ library ChainLinkLib {
 				revert(ptr, returndatasize())
 			}
 
-			if iszero(slt(mload(add(res, 0x20)), 0x00)) {
-				answer := mload(add(res, 0x20))
-			}
-
 			round := mload(res)
+			answer := mload(add(res, 0x20))
 			startedAt := mload(add(res, 0x40))
 			updatedAt := mload(add(res, 0x60))
 			answeredInRound := mload(add(res, 0x80))
+
+			if iszero(sgt(answer, 0x00)) {
+				invalid()
+			}
 		}
 	}
 
@@ -202,8 +203,10 @@ library ChainLinkLib {
 				revert(ptr, returndatasize())
 			}
 
-			if iszero(slt(mload(0x00), 0x00)) {
-				answer := mload(0x00)
+			answer := mload(0x00)
+
+			if iszero(sgt(answer, 0x00)) {
+				invalid()
 			}
 		}
 	}
