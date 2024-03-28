@@ -40,7 +40,7 @@ library BitmapLibrary {
 			for {
 				let pos := and(bitmap, not(sub(bitmap, 0x01)))
 			} gt(pos, 0x01) {
-				pos := shr(pos, 0x01)
+				pos := shr(0x01, pos)
 			} {
 				i := add(i, 0x01)
 			}
