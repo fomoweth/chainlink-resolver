@@ -245,6 +245,12 @@ contract ChainLinkResolver is IChainLinkResolver, Owned {
 		return _feeds[base][quote];
 	}
 
+	function queryFeed(address base, address quote) external view returns (bytes32 feed) {
+		if ((base = unwrap(base)) == (quote = unwrap(quote))) revert Errors.IdenticalAddresses();
+
+		return _queryFeed(base, quote);
+	}
+
 	function _queryFeed(address base, address quote) internal view returns (bytes32 feed) {
 		// get feed configuration for given base and quote; swap positions if not exists
 		if ((feed = _feeds[base][quote]) == bytes32(0)) feed = _feeds[quote][base];

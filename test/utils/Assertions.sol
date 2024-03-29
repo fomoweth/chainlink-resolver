@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {console2 as console} from "forge-std/Test.sol";
 import {Bytes32Lib} from "src/libraries/Bytes32Lib.sol";
 import {Denominations} from "src/libraries/Denominations.sol";
 import {Errors} from "src/libraries/Errors.sol";
