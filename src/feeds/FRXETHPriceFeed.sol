@@ -24,23 +24,23 @@ contract FRXETHPriceFeed is IChainLinkFeed {
 		frxETHCRV = verifyPool(frxETHCrv.verifyNotZero("frxETHCRV"), wETH, frxETH);
 	}
 
-	function latestRoundData() external view returns (uint80, uint256, uint256, uint256, uint80) {
-		return (1, exchangeRate(), blockTimestamp(), blockTimestamp(), 1);
+	function latestRoundData() external view virtual returns (uint80, uint256, uint256, uint256, uint80) {
+		return (1, exchangeRate(1 ether), blockTimestamp(), blockTimestamp(), 1);
 	}
 
-	function latestAnswer() external view returns (uint256) {
-		return exchangeRate();
+	function latestAnswer() external view virtual returns (uint256) {
+		return exchangeRate(1 ether);
 	}
 
-	function latestTimestamp() external view returns (uint256) {
+	function latestTimestamp() external view virtual returns (uint256) {
 		return blockTimestamp();
 	}
 
-	function latestRound() external pure returns (uint256) {
+	function latestRound() external view virtual returns (uint256) {
 		return 1;
 	}
 
-	function decimals() external pure returns (uint8) {
+	function decimals() external pure virtual returns (uint8) {
 		return 18;
 	}
 
@@ -48,12 +48,12 @@ contract FRXETHPriceFeed is IChainLinkFeed {
 		return "FRXETH / ETH";
 	}
 
-	function version() external pure returns (uint256) {
+	function version() external pure virtual returns (uint256) {
 		return 1;
 	}
 
-	function exchangeRate() internal view virtual returns (uint256) {
-		return getDy(frxETHCRV, 1, 0, 1 ether);
+	function exchangeRate(uint256 value) internal view virtual returns (uint256) {
+		return getDy(frxETHCRV, 1, 0, value);
 	}
 
 	function getDy(address crvPool, uint256 i, uint256 j, uint256 dx) internal view returns (uint256 dy) {

@@ -22,6 +22,26 @@ contract SFRXETHPriceFeed is IChainLinkFeed, FRXETHPriceFeed {
 		SFRXETH = sfrxETH.verifyNotZero("sfrxETH");
 	}
 
+	function latestRoundData()
+		external
+		view
+		virtual
+		override(IChainLinkFeed, FRXETHPriceFeed)
+		returns (uint80, uint256, uint256, uint256, uint80)
+	{
+		return (1, exchangeRate(pricePerShare(SFRXETH)), blockTimestamp(), blockTimestamp(), 1);
+	}
+
+	function latestAnswer()
+		external
+		view
+		virtual
+		override(IChainLinkFeed, FRXETHPriceFeed)
+		returns (uint256)
+	{
+		return exchangeRate(pricePerShare(SFRXETH));
+	}
+
 	function description()
 		external
 		pure
@@ -32,8 +52,8 @@ contract SFRXETHPriceFeed is IChainLinkFeed, FRXETHPriceFeed {
 		return "SFRXETH / ETH";
 	}
 
-	function exchangeRate() internal view virtual override returns (uint256) {
-		return getDy(frxETHCRV, 1, 0, pricePerShare(SFRXETH));
+	function exchangeRate(uint256 value) internal view virtual override returns (uint256) {
+		return getDy(frxETHCRV, 1, 0, value);
 	}
 
 	function pricePerShare(address sfrxETH) internal view returns (uint256 rate) {
