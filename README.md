@@ -46,7 +46,7 @@ uint8 internal constant MAX_ASSETS = 255;
 
 An asset will be registered at feed registration if it's not registered already. There is a max limit for number of assets that can be registered which is 255.
 
-The value of `_assetConfigs` is used for determining whether a common feed exists between a pair of assets.
+The value of `_assetConfigs` is used for determining whether a common feed exists between a pair of assets or not.
 
 ### [Bitmap.sol](https://github.com/fomoweth/chainlink-resolver/blob/main/src/types/Bitmap.sol)
 
